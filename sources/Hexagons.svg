@@ -3,9 +3,9 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
  viewBox="0 0 100% 100%" xml:space="preserve">
 <title>Hexagons</title>
-<pattern width="60" height="34.64" patternUnits="userSpaceOnUse" id="Unnamed_Pattern" viewBox="0 0 120 69.28" overflow="hidden">
+<pattern width="45" height="25.98" patternUnits="userSpaceOnUse" id="Unnamed_Pattern" viewBox="0 0 120 69.28" overflow="hidden">
 	<g id="row">
-		<path id="unit" d="M-20,-34.64H20L40,0L20,34.64H-20L-40,0Z" fill="none" stroke="#002333" stroke-width="2"/>
+		<path id="unit" d="M-20,-34.64H20L40,0L20,34.64H-20L-40,0Z" fill="none" stroke="#002333" stroke-width="4"/>
 		<use xlink:href="#unit" x="-240"/><use xlink:href="#unit" x="-120"/><use xlink:href="#unit" x="120"/><use xlink:href="#unit" x="240"/>
 	</g>
 	<use xlink:href="#row" x="60" y="-34.64"/><use xlink:href="#row" x="60" y="34.64"/>
