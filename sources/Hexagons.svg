@@ -6,13 +6,13 @@
 <pattern width="60" height="34.64" patternUnits="userSpaceOnUse" id="Unnamed_Pattern" viewBox="0 0 120 69.28">
 	<g id="row">
 		<filter id="s">
-      <feGaussianBlur stdDeviation="6"/>
+      <feGaussianBlur stdDeviation="5"/>
     </filter>
-		<path style="filter: url(#s)" id="unit" d="M-20,-34.64H20L40,0L20,34.64H-20L-40,0Z" fill="none" stroke="rgba(0, 160, 235, 0.6)" stroke-width="2"/>
+		<path style="filter: url(#s)" id="unit" d="M-20,-34.64H20L40,0L20,34.64H-20L-40,0Z" fill="none" stroke="rgba(0, 160, 235, 0.5)" stroke-width="2"/>
 		<use xlink:href="#unit" x="-240"/><use xlink:href="#unit" x="-120"/><use xlink:href="#unit" x="120"/><use xlink:href="#unit" x="240"/>
 	</g>
 	<g id="row2">
-		<path id="unit2" d="M-20,-34.64H20L40,0L20,34.64H-20L-40,0Z" fill="none" stroke="rgba(0, 144, 212, 0.1)" stroke-width="3"/>
+		<path id="unit2" d="M-20,-34.64H20L40,0L20,34.64H-20L-40,0Z" fill="none" stroke="rgba(0, 144, 212, 0.2)" stroke-width="2"/>
 		<use xlink:href="#unit2" x="-240"/><use xlink:href="#unit2" x="-120"/><use xlink:href="#unit2" x="120"/><use xlink:href="#unit2" x="240"/>
 	</g>
 	<use xlink:href="#row" x="60" y="-34.64"/><use xlink:href="#row" x="60" y="34.64"/>
