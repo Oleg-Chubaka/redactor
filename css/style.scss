@@ -8,7 +8,7 @@ $fe2: 'Exo 2';
 }
 
 body {
-  // overflow: hidden;
+  overflow: hidden;
   background: #000;
   color: #fff;
   font-family: $fe2;
@@ -39,6 +39,5 @@ body {
         rgba(255, 255, 255, 0.01) 80%,
         rgba(255, 255, 255, 0) 90%);
   border-radius: 50%;
-  // box-shadow: inset 0 0 20px 10px transparent;
   filter: blur(5px);
 }
