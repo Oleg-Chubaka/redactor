@@ -8,11 +8,20 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="bg">
-    <div class="hover-light"></div>
+  <div id="hover-light"></div>
+  <div id="hud">
+    <canvas id="hudCanvas" width="100%" height="100%">
+      
+    </canvas>
   </div>
 
+
+  <script src="js/site.js"></script>
+  <script src="js/canvas.js"></script>
+  <script type="text/javascript">
+    let hl = document.getElementById('hover-light');
+    document.addEventListener('mousemove', e => { hl.style.left = e.clientX+'px'; hl.style.top = e.clientY+'px'; });
+  </script>
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-  <script type="text/javascript">$(document).mousemove(function(e){ $('.hover-light').css({left:e.pageX, top:e.pageY}); });</script>
 </body>
 </html>

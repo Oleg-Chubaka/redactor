@@ -9,35 +9,32 @@ $fe2: 'Exo 2';
 
 body {
   overflow: hidden;
-  background: #000;
-  color: #fff;
+  width: 100vw;
+  height: 100vh;
+  background: url('../sources/Hexagons.svg') black;
+  color: white;
   font-family: $fe2;
 }
 
-.bg {
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: url('../sources/Hexagons.svg');
-}
-
-.hover-light {
-  position: absolute;
-  top: -100vw;
-  left: -100vw;
+#hover-light {
+  position: fixed;
+  top: -1vw;
+  left: -1vw;
   transform: translate(-50%, -50%);
   width: 550px;
   height: 550px;
   background: 
-    radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.13) 0%,
-        rgba(255, 255, 255, 0.08) 50%,
-        rgba(255, 255, 255, 0.01) 80%,
-        rgba(255, 255, 255, 0) 90%);
+    radial-gradient(circle,
+        rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0.01) 80%, rgba(255, 255, 255, 0) 90%);
   border-radius: 50%;
-  filter: blur(5px);
+}
+
+#hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
 }
