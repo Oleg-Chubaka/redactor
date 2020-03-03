@@ -1,46 +1,86 @@
+function m(a, b) {
+  return Math.max(a, b);
+}
+
 (function() {
-  var canvas = document.getElementById('hudCanvas'),
-      context = canvas.getContext('2d');
+  var canvasHud = document.getElementById('hudCanvas');
+  var canvasMenu = document.getElementById('menuCanvas');
+  var black1 = 'rgba(0, 0, 0, 0.6)';
+  var black2 = 'rgba(0, 0, 0, 0.7)';
+  var blue1 = 'rgb(36, 185, 255)';
+  var blue2 = '#197ba8';
+  var orange1 = '#ffa200';
+  var orange2 = '#d47e0f';
 
-  window.addEventListener('resize', resizeCanvas, false);
+  var ch = canvasHud.height;
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  var lh1 = 0;
+  var lh2 = 25;
+  var lh3 = lh2 - 10;
 
-    drawCanvas();
-  }
-  resizeCanvas();
+  var lw1 = 0;
+  var lw2 = 0;
+  var lw4 = 30;
+  var lw5 = lw4 - 27;
 
+  var menu_toggle = 0;
+  
+  window.addEventListener('resize', resizeCanvasHud, false);
+  window.addEventListener('resize', recalc, false);
+  window.addEventListener('resize', resizeCanvasMenu, false);
+  window.addEventListener('resize', redrawCanvas, false);
+  
+  // Help functions
   function wp(i) {
-    return i*canvas.width/100;
+    return i*canvasHud.width/100;
   }
-
+  
   function hp(i) {
-    return i*canvas.height/100;
+    return i*canvasHud.height/100;
   }
 
-  function m(a, b) {
-    return Math.max(a, b);
+  // Resize and redraw canvases
+  function resizeCanvasHud() {
+    canvasHud.width = window.innerWidth;
+    canvasHud.height = window.innerHeight;
   }
+  resizeCanvasHud();
 
+  function recalc(){
+    ch = canvasHud.height;
 
-  function drawCanvas() {
-    var ctx = canvas.getContext("2d");
-    var cw = canvas.width;
-    var ch = canvas.height;
+    lh1 = m(hp(17), 80);
+
+    lw1 = m(wp(20), 200);
+    lw2 = m(wp(4), 40);
+  }
+  recalc();
+
+  function resizeCanvasMenu() {
+    canvasMenu.width = lw1 + lw4 + 5;
+    canvasMenu.height = window.innerHeight;
+  }
+  resizeCanvasMenu();
+
+  function redrawCanvas() {
+    drawBorder();
+    drawButton();
     
-    var lh1 = m(hp(17), 80);
-    var lh2 = 25;
-    var lh3 = lh2 - 10;
+    // drawMenuOff();
+    if (menu_toggle == 1) {
+      redrawOpenMenu();
+    }
+  }
+  redrawCanvas();
 
-    var lw1 = m(wp(20), 200);
-    var lw2 = m(wp(4), 40);
-    var lw4 = 30;
-    var lw5 = lw4 - 15;
+  // Draw parts of canvases
+  function drawBorder() {
+    var ctx = canvasHud.getContext("2d");
+    var cw = canvasHud.width;
+
     var lw3 = cw - (lw1 + lw4 + 60 - lh3 + 15 + lh2 + 5 + lw2 + 30)*2;
-
     // BLACK BG
+    ctx.fillStyle = black1;
 
     ctx.beginPath();
     ctx.moveTo(lw4, lh2);
@@ -104,8 +144,8 @@
     ctx.moveTo(cw, 0);
     ctx.lineTo(cw - lw4, lh2);
     ctx.lineTo(cw - (lw1 + lw4), lh2);
-    ctx.lineTo(cw - (lw1 + lw4 + 15), lh3);
-    ctx.lineTo(lw1 + lw4 + 15, lh3);
+    ctx.lineTo(cw - (lw1 + lw4 + 15 + 13), lh3 - 13);
+    ctx.lineTo(lw1 + lw4 + 15 + 13, lh3 - 13);
     ctx.lineTo(lw1 + lw4, lh2);
     ctx.lineTo(lw4, lh2);
     ctx.lineTo(0, 0);
@@ -114,15 +154,14 @@
 
     // LIGHT!!!
     ctx.beginPath();
-    ctx.lineWidth = m(4, wp(0.3));
-    ctx.strokeStyle = 'rgb(36, 185, 255)';
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = blue1;
     ctx.lineCap = 'square';
     ctx.lineJoin = 'round';
     ctx.shadowBlur = 8;
-    ctx.shadowColor = '#197ba8';
+    ctx.shadowColor = blue2;
 
-    ctx.moveTo(lw4, lh2);
-    
+    ctx.moveTo(lw4, lh2);    
     ctx.lineTo(lw4, lh1 + lh2);
     ctx.lineTo(lw5, lh1 + lh2 + 20);
     ctx.lineTo(lw5, ch - lh1 - lh2 - 20);
@@ -159,8 +198,8 @@
     ctx.lineTo(cw - lw4, lh2);
     
     ctx.lineTo(cw - (lw1 + lw4), lh2);
-    ctx.lineTo(cw - (lw1 + lw4 + 15), lh3);
-    ctx.lineTo(lw1 + lw4 + 15, lh3);
+    ctx.lineTo(cw - (lw1 + lw4 + 15 + 13), lh3 - 13);
+    ctx.lineTo(lw1 + lw4 + 15 + 13, lh3 - 13);
     ctx.lineTo(lw1 + lw4, lh2);
     ctx.lineTo(lw4, lh2);
 
@@ -168,14 +207,13 @@
 
 
     // ORANGE!!!
-
     ctx.beginPath();
     ctx.lineWidth = 1.5;
-    ctx.strokeStyle = '#ffa200';
+    ctx.strokeStyle = orange1;
     ctx.lineCap = 'square';
     ctx.lineJoin = 'round';
     ctx.shadowBlur = 10;
-    ctx.shadowColor = '#d47e0f';
+    ctx.shadowColor = orange2;
     
     // TOP LEFT
     ctx.arc(lw4/2 + lw1*0.9, lh2*0.4, 3.5, 0, Math.PI*2);
@@ -187,7 +225,6 @@
     ctx.lineTo(lw4/3 + 8, lh2*2 + 8);
     ctx.lineTo(lw4/3 + 8, lh1*0.9);
     ctx.arc(lw4/3 + 8, lh1*0.9 + 5, 3.5, 0, Math.PI*2);
-
     ctx.stroke();
 
     // TOP RIGHT
@@ -248,9 +285,9 @@
     ctx.beginPath();
     ctx.arc(lw4*5.5, ch - lh2*0.5, 3.5, 0, Math.PI*2);
     ctx.moveTo(lw4*5.5 + 5, ch - lh2*0.5);
-    ctx.lineTo(lw4*7.5, ch - lh2*0.5);
-    ctx.moveTo(lw4*7.5 + 8, ch - lh2*0.5);
-    ctx.arc(lw4*7.5 + 5, ch - lh2*0.5, 3.5, 0, -Math.PI*2);
+    ctx.lineTo(lw1*0.9, ch - lh2*0.5);
+    ctx.moveTo(lw1*0.9 + 8, ch - lh2*0.5);
+    ctx.arc(lw1*0.9 + 5, ch - lh2*0.5, 3.5, 0, -Math.PI*2);
     ctx.stroke();
     
     // BOTTOM RIGHT 2
@@ -258,8 +295,127 @@
     ctx.arc(cw - (lw4*5.5), ch - lh2*0.5, 3.5, 0, Math.PI*2);
     ctx.moveTo(cw - (lw4*5.5 + 5), ch - lh2*0.5);
     ctx.lineTo(cw - (lw1*0.9), ch - lh2*0.5);
-    ctx.arc(cw - (lw1*0.9), ch - lh2*0.5, 3.5, 0, -Math.PI*2);
+    ctx.arc(cw - (lw1*0.9 + 8), ch - lh2*0.5, 3.5, 0, -Math.PI*2);
     ctx.stroke();
 
+    // BOTTOM CENTRE
+    ctx.beginPath();
+    ctx.arc(lw1 + lw4 - lh3 + lh2 + 85, ch - lh2*0.75, 3.5, 0, Math.PI*2);
+    ctx.lineTo(lw1 + lw4 - lh3 + lh2 + 80 + lw2, ch - lh2*0.75);
+    ctx.lineTo(lw1 + lw4 + lh2 + 80 + lw2, ch - lh3*0.5);
+    ctx.lineTo(cw - (lw1 + lw4 + lh2 + 80 + lw2), ch - lh3*0.5);
+    ctx.lineTo(cw - (lw1 + lw4 - lh3 + lh2 + 80 + lw2), ch - lh2*0.75);
+    ctx.lineTo(cw - (lw1 + lw4 - lh3 + lh2 + 85) - 5, ch - lh2*0.75, 3.5, 0, Math.PI*2);
+    ctx.moveTo(cw - (lw1 + lw4 - lh3 + lh2 + 85) + 3, ch - lh2*0.75, 3.5, 0, Math.PI*2);
+    ctx.arc(cw - (lw1 + lw4 - lh3 + lh2 + 85), ch - lh2*0.75, 3.5, 0, Math.PI*2);
+    // ctx.moveTo(cw - (lw4*5.5 + 5), ch - lh2*0.5);
+    
+    // ctx.arc(cw - (lw1*0.9 + 8), ch - lh2*0.5, 3.5, 0, -Math.PI*2);
+    ctx.stroke();
+
+  }
+
+  function drawHex(ctx, n, bx, by, hex) {
+    
+    var h = n*Math.sqrt(3)/2;
+    var a = {x: bx, y: by - n},
+        b = {x: bx + h, y: by - n/2},
+        c = {x: bx + h, y: by + n/2},
+        d = {x: bx, y: by + n},
+        e = {x: bx - h, y: by + n/2},
+        f = {x: bx - h, y: by - n/2};
+    
+    // Hexagon
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = blue1;
+    ctx.lineCap = 'square';
+    ctx.lineJoin = 'round';
+    ctx.fillStyle = black2;
+    ctx.shadowBlur = 4;
+    ctx.shadowColor = blue2;
+    
+    hex.moveTo(a.x, a.y);
+    hex.lineTo(b.x, b.y);
+    hex.lineTo(c.x, c.y);
+    hex.lineTo(d.x, d.y);
+    hex.lineTo(e.x, e.y);
+    hex.lineTo(f.x, f.y);
+    hex.closePath();
+
+    ctx.stroke(hex);
+    ctx.fill(hex);
+
+    // Orange
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = orange1;
+    ctx.lineCap = 'square';
+    ctx.lineJoin = 'round';
+    ctx.fillStyle = 'none';
+    ctx.shadowBlur = 2;
+    ctx.shadowColor = orange2;
+    
+    var n2 = n - 3;
+    var h = n2*Math.sqrt(3)/2;
+    var a = {x: bx, y: by - n2},
+        b = {x: bx + h, y: by - n2/2},
+        c = {x: bx + h, y: by + n2/2},
+        d = {x: bx, y: by + n2},
+        e = {x: bx - h, y: by + n2/2},
+        f = {x: bx - h, y: by - n2/2};
+    
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.lineTo(c.x, c.y);
+    ctx.lineTo(d.x, d.y);
+    ctx.lineTo(e.x, e.y);
+    ctx.lineTo(f.x, f.y);
+    ctx.closePath();
+    ctx.stroke();
+    
+  }
+
+  function drawButton() {
+    var ctx = canvasHud.getContext("2d");
+    
+    var n = 20;
+    var h = n*Math.sqrt(3)/2;
+    var bx = h + 15, by = ch/2;
+    var hex = new Path2D();
+    drawHex(ctx, n, bx, by, hex);
+
+    document.addEventListener('mousedown', e => {
+      if (ctx.isPointInPath(hex, e.clientX, e.clientY)) {
+        $('#menu-close').toggleClass('open');
+        console.log(menu_toggle);
+        if (menu_toggle == 0) {
+          animate(menu_toggle);
+          menu_toggle = 1;
+        } else {
+          drawMenuOff();
+          menu_toggle = 0;
+        }
+        console.log(menu_toggle);
+      }
+    });
+  }
+
+  function drawMenu(i, iv) {
+    var ctx = canvasMenu.getContext("2d");
+
+    drawMenuOff();
+    // Orange
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = orange1;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.fillStyle = 'none';
+    ctx.shadowBlur = 5;
+    ctx.shadowColor = orange2;
+    
+    
+    ctx.moveTo(lw1 + lw4, lh2);
+    ctx.lineTo(lw1 + lw4, lh2 + i*iv);
+    ctx.stroke();
   }
 })();
