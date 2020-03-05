@@ -4,8 +4,8 @@ function m(a, b) {
 
 (function() {
   var canvasHud = document.getElementById('hudCanvas');
-  var canvasMenu = document.getElementById('menuCanvas');
-  var black1 = 'rgba(0, 0, 0, 0.6)';
+  // var canvasMenu = document.getElementById('menuCanvas');
+  var black1 = 'rgba(0, 0, 0, 0.9)';
   var black2 = 'rgba(0, 0, 0, 0.7)';
   var blue1 = 'rgb(36, 185, 255)';
   var blue2 = '#197ba8';
@@ -22,12 +22,9 @@ function m(a, b) {
   var lw2 = 0;
   var lw4 = 30;
   var lw5 = lw4 - 27;
-
-  var menu_toggle = 0;
   
   window.addEventListener('resize', resizeCanvasHud, false);
   window.addEventListener('resize', recalc, false);
-  window.addEventListener('resize', resizeCanvasMenu, false);
   window.addEventListener('resize', redrawCanvas, false);
   
   // Help functions
@@ -56,20 +53,9 @@ function m(a, b) {
   }
   recalc();
 
-  function resizeCanvasMenu() {
-    canvasMenu.width = lw1 + lw4 + 5;
-    canvasMenu.height = window.innerHeight;
-  }
-  resizeCanvasMenu();
-
   function redrawCanvas() {
     drawBorder();
     drawButton();
-    
-    // drawMenuOff();
-    if (menu_toggle == 1) {
-      redrawOpenMenu();
-    }
   }
   redrawCanvas();
 
@@ -387,35 +373,9 @@ function m(a, b) {
     document.addEventListener('mousedown', e => {
       if (ctx.isPointInPath(hex, e.clientX, e.clientY)) {
         $('#menu-close').toggleClass('open');
-        console.log(menu_toggle);
-        if (menu_toggle == 0) {
-          animate(menu_toggle);
-          menu_toggle = 1;
-        } else {
-          drawMenuOff();
-          menu_toggle = 0;
-        }
-        console.log(menu_toggle);
+        $('#main-menu').toggleClass('open');
+        
       }
     });
-  }
-
-  function drawMenu(i, iv) {
-    var ctx = canvasMenu.getContext("2d");
-
-    drawMenuOff();
-    // Orange
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = orange1;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.fillStyle = 'none';
-    ctx.shadowBlur = 5;
-    ctx.shadowColor = orange2;
-    
-    
-    ctx.moveTo(lw1 + lw4, lh2);
-    ctx.lineTo(lw1 + lw4, lh2 + i*iv);
-    ctx.stroke();
   }
 })();
