@@ -369,12 +369,33 @@ function m(a, b) {
     var bx = h + 15, by = ch/2;
     var hex = new Path2D();
     drawHex(ctx, n, bx, by, hex);
-
+    
+    var open = 1;
     document.addEventListener('mousedown', e => {
       if (ctx.isPointInPath(hex, e.clientX, e.clientY)) {
         $('#menu-close').toggleClass('open');
         $('#main-menu').toggleClass('open');
         
+        if (open == 1) {
+          for (var item of $('#main-menu #menu-grid .row .pattern')) {
+            item.classList.add('open');
+          }
+          open = 2;
+        } else if (open == 2) {
+          for (var item of $('#main-menu #menu-grid .row .pattern')) {
+            item.classList.remove('open');
+            item.offsetWidth = item.offsetWidth;
+            item.classList.add('close');
+          }
+          open = 3;
+        } else {
+          for (var item of $('#main-menu #menu-grid .row .pattern')) {
+            item.classList.remove('close');
+            item.offsetWidth = item.offsetWidth;
+            item.classList.add('open');
+          }
+          open = 2;
+        }
       }
     });
   }
