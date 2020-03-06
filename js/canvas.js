@@ -366,7 +366,7 @@ function m(a, b) {
     
     var n = 20;
     var h = n*Math.sqrt(3)/2;
-    var bx = h + 15, by = ch/2;
+    var bx = h + 12, by = ch/2;
     var hex = new Path2D();
     drawHex(ctx, n, bx, by, hex);
     
@@ -375,26 +375,41 @@ function m(a, b) {
       if (ctx.isPointInPath(hex, e.clientX, e.clientY)) {
         $('#menu-close').toggleClass('open');
         $('#main-menu').toggleClass('open');
+        var menuContent = $('#menu-content')[0];
         
         if (open == 1) {
           for (var item of $('#main-menu #menu-grid .row .pattern')) {
             item.classList.add('open');
           }
+          menuContent.classList.add('open');
           open = 2;
+          setTimeout(function () {
+            $('#menu-content').mCustomScrollbar("update");
+          }, 1500);
         } else if (open == 2) {
           for (var item of $('#main-menu #menu-grid .row .pattern')) {
             item.classList.remove('open');
-            item.offsetWidth = item.offsetWidth;
             item.classList.add('close');
           }
+          menuContent.classList.remove('open');
+          menuContent.classList.add('close');
           open = 3;
+          setTimeout(function () {
+            $(".content").mCustomScrollbar("disable",true);
+          }, 1000);
         } else {
           for (var item of $('#main-menu #menu-grid .row .pattern')) {
             item.classList.remove('close');
             item.offsetWidth = item.offsetWidth;
             item.classList.add('open');
           }
+          menuContent.classList.remove('close');
+          menuContent.offsetWidth = menuContent.offsetWidth;
+          menuContent.classList.add('open');
           open = 2;
+          setTimeout(function () {
+            $('#menu-content').mCustomScrollbar("update");
+          }, 1500);
         }
       }
     });

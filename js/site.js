@@ -12,3 +12,13 @@ function moveLight(x, y){
   hl.style.left = x + 'px';
   hl.style.top = y + 'px';
 }
+
+
+$("#menu-content").mCustomScrollbar({
+  theme:"my-theme",
+  axis:"y",
+  mouseWheel: { scrollAmount: 500 },
+  autoHideScrollbar: true,
+  scrollInertia: 100
+});
+$(".content").mCustomScrollbar("disable",true);

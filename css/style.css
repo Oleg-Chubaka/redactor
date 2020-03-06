@@ -117,13 +117,13 @@ body {
 }
 
 #hud #main-menu #menu-grid .row .pattern.open {
-  -webkit-animation: 1s openMenu normal forwards;
-          animation: 1s openMenu normal forwards;
+  -webkit-animation: 1s normal forwards openMenu;
+          animation: 1s normal forwards openMenu;
 }
 
 #hud #main-menu #menu-grid .row .pattern.close {
-  -webkit-animation: .5s closeMenu normal forwards;
-          animation: .5s closeMenu normal forwards;
+  -webkit-animation: .5s .5s normal both closeMenu;
+          animation: .5s .5s normal both closeMenu;
 }
 
 @-webkit-keyframes openMenu {
@@ -204,18 +204,6 @@ body {
   background-color: rgba(20, 13, 3, 0.7);
 }
 
-#hud #main-menu #menu-buttons {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 30px;
-  width: calc(100% - 40px);
-  height: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 20px 15px;
-}
-
 #hud #main-menu #border-line {
   position: absolute;
   top: 0;
@@ -244,12 +232,122 @@ body {
   bottom: 0;
 }
 
-#hud #main-menu.open #menu-buttons {
-  display: block;
-}
-
 #hud #main-menu.open #border-line span {
   height: calc(50% + 1px);
+}
+
+#hud #menu-content {
+  position: absolute;
+  top: 40px;
+  left: 45px;
+  width: calc(max(20vw, 200px) - 25px);
+  height: 0;
+  overflow: hidden;
+}
+
+#hud #menu-content .login {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  cursor: pointer;
+}
+
+#hud #menu-content .login .avatar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: url("../sources/img/logo_200.jpg");
+  background-repeat: no-repeat;
+  background-size: 46px 46px;
+  border: 2px solid #24b9ff;
+  display: inline-block;
+}
+
+#hud #menu-content .login .logo {
+  position: absolute;
+  top: 25px;
+  left: 76px;
+  font-size: 1.1em;
+  color: #24b9ff;
+  display: inline-block;
+}
+
+#hud #menu-content .login:hover {
+  background: rgba(20, 17, 9, 0.8);
+}
+
+#hud #menu-content .login:hover .avatar {
+  -webkit-box-shadow: 0 0 5px 1px #197ba8;
+          box-shadow: 0 0 5px 1px #197ba8;
+}
+
+#hud #menu-content .login:hover .logo {
+  text-shadow: 0 0 2px #197ba8;
+}
+
+#hud #menu-content .button {
+  width: 100%;
+  height: 400px;
+  padding: 20px;
+  border-bottom: 2px solid black;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: red;
+}
+
+#hud #menu-content.open {
+  -webkit-animation: .5s 1s normal forwards openMenuContent;
+          animation: .5s 1s normal forwards openMenuContent;
+}
+
+#hud #menu-content.close {
+  animation: .5s reverse forwards openMenuContent;
+}
+
+@-webkit-keyframes openMenuContent {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: calc(100vh - 80px);
+  }
+}
+
+@keyframes openMenuContent {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: calc(100vh - 80px);
+  }
+}
+
+#hud #menu-content .mCS-my-theme .mCSB_container {
+  margin-right: 0;
+}
+
+#hud #menu-content .mCS-my-theme.mCSB_scrollTools {
+  margin: 10px 0;
+  width: 10px;
+}
+
+#hud #menu-content .mCS-my-theme.mCSB_scrollTools .mCSB_draggerRail {
+  background-color: rgba(78, 63, 32, 0.5);
+  width: 4px;
+}
+
+#hud #menu-content .mCS-my-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  width: 4px;
+  margin: 0 3px;
+  background-color: #ffa200;
+  -webkit-box-shadow: 3px solid #d47e0f;
+          box-shadow: 3px solid #d47e0f;
 }
 
 #hud #menu-close {
@@ -257,7 +355,7 @@ body {
   height: 16px;
   position: absolute;
   top: calc(50vh - 7.6px);
-  left: 23px;
+  left: 20px;
 }
 
 #hud #menu-close span {
