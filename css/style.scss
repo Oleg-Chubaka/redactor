@@ -5,8 +5,10 @@ $blue1: rgb(36, 185, 255);
 $blue2: #197ba8;
 $orange1:  rgb(255, 162, 0);
 $orange2: #d47e0f;
-$n: calc(10vh - 5px);
-$h: 1.5px;
+$orange3: rgba(255, 162, 0, 0.2);
+$orange4: rgba(255, 162, 0, 0.7);
+$n: calc((100vh - 50px)/15);
+$h: 1px;
 
 
 * {
@@ -79,6 +81,11 @@ body {
         &:nth-child(8) { top: calc(#{$n}*7); }
         &:nth-child(9) { top: calc(#{$n}*8); }
         &:nth-child(10) { top: calc(#{$n}*9); }
+        &:nth-child(11) { top: calc(#{$n}*10); }
+        &:nth-child(12) { top: calc(#{$n}*11); }
+        &:nth-child(13) { top: calc(#{$n}*12); }
+        &:nth-child(14) { top: calc(#{$n}*13); }
+        &:nth-child(15) { top: calc(#{$n}*14); }
         
         .pattern {
           position: absolute;
@@ -89,21 +96,18 @@ body {
           height: $h;
 
           background-image: 
-          /*   Вторая сетка   */
-            linear-gradient($orange1 1.6px, transparent 0),
-            linear-gradient(90deg, $orange1 1.6px, transparent 0),
-            /*   Третья сетка   */
-            linear-gradient($orange1 0.5px, transparent 0),
-            linear-gradient(90deg, $orange1 0.5px, transparent 0);
-          background-size: $n $n, $n $n, calc(#{$n}/2) calc(#{$n}/2), calc(#{$n}/2) calc(#{$n}/2);
-          background-position: 0 calc(#{$h}/2 - 0.8px), 0 0;
+            linear-gradient($orange4 1.2px, transparent 0),
+            repeating-linear-gradient($orange3, $orange3 3%, transparent 3%, transparent 10%),
+            linear-gradient(90deg, $orange4 1.2px, transparent 0);
+          background-size: $n $n, $n $n, $n $n;
+          background-position: 0 calc(#{$h}/2 - 0.6px);
           
           &.open {
             animation: 1s normal forwards openMenu;
           }
 
           &.close {
-            animation: .5s .5s normal both closeMenu;
+            animation: .5s .3s normal both closeMenu;
           }
 
           @keyframes openMenu {
@@ -127,7 +131,7 @@ body {
               width: 100%;
               height: $n;
               background-position: 0 calc(#{$n}/2 - 1px), 0 0;
-            } 60% {
+            } 50% {
               width: 100%;
               height: $h;
               background-position: 0 calc(#{$h}/2 - 1px), 0 0;
@@ -182,59 +186,103 @@ body {
 
   #menu-content {
     position: absolute;
-    top: 40px; left: 45px;
-    width: calc(max(20vw, 200px) - 25px);
+    top: 30px; left: 35px;
+    width: calc(max(20vw, 200px) - 10px);
     height: 0;
     overflow: hidden;
 
     .login {
       position: relative;
       width: 100%;
-      height: 70px;
+      height: 50px;
       box-sizing: border-box;
       cursor: pointer;
 
       .avatar {
         position: absolute;
-        top: 10px; left: 10px;
-        width: 46px;
-        height: 46px;
+        top: 50%; left: 5px;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        box-sizing: border-box;
         border-radius: 50%;
         overflow: hidden;
         background: url('../sources/img/logo_200.jpg');
         background-repeat: no-repeat;
-        background-size: 46px 46px;
+        background-size: 40px 40px;
         border: 2px solid $blue1;
-        display: inline-block;
-
-        
       }
+
       .logo {
         position: absolute;
-        top: 25px; left: 76px;
-        font-size: 1.1em;
+        top: 50%; left: 50px;
+        transform: translateY(-50%);
+        font-size: 16px;
         color: $blue1;
-        display: inline-block;
+        width: calc(max(20vw, 200px) - 100px);
+        word-wrap: break-word;
       }
 
       &:hover {
-        background: rgba(20, 17, 9, 0.8);
+        background: rgba(20, 17, 9, 0.4);
         .avatar {
           box-shadow: 0 0 5px 1px $blue2;
         }
         .logo {
-          text-shadow: 0 0 2px $blue2;
+          text-shadow: 0 0 1px $blue2;
         }
       }
     }
 
-    .button {
+    #buttons{
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
-      height: 400px;
-      padding: 20px;
-      border-bottom: 2px solid black;
-      box-sizing: border-box;
-      background: red;
+      
+      $h2: calc((max(20vw, 200px) - 10px)*0.35);
+      $n2: calc(((max(20vw, 200px) - 10px)*0.35*2)/1.73);
+
+
+      .button {
+        position: relative;
+        margin-top: 25px;
+        left: 30%;
+        float: left;
+        transform: translateX(-50%);
+
+        overflow: hidden;
+
+        width: $n2;
+        height: $h2;
+        box-sizing: border-box;
+
+        &:nth-child(even) {
+          left: 10%;
+          top: 60px;
+          float: right;
+        }
+
+        .dashes.run {
+          animation: dashAnim .4s infinite linear;
+        }
+
+        @keyframes dashAnim {
+          0% {
+            stroke-dashoffset: 0;
+          } 100% {
+            stroke-dashoffset: -100%;
+          }
+        }
+      }
+
+      .bottomTaker {
+        width: 100%;
+        height: 1px;
+        clear: both;
+        display: inline-block;
+        margin-top: 60px;
+      }
     }
 
     &.open {
@@ -249,119 +297,153 @@ body {
       0% {
         height: 0;
       } 100% {
-        height: calc(100vh - 80px);
+        height: calc(100vh - 60px);
       }
     }
 
-    .mCS-my-theme .mCSB_container{
-      margin-right: 0;
-    }
-    
-    .mCS-my-theme.mCSB_scrollTools {
-      margin: 10px 0;
-      width: 10px;
-    }
+    .mCS-my-theme {
 
-    .mCS-my-theme.mCSB_scrollTools .mCSB_draggerRail{
-      background-color: rgba(78, 63, 32, 0.5);
-      width: 4px;
-    }
+      &.mCSB_scrollTools {
+        margin: 10px 0;
+        width: 10px;
 
-    .mCS-my-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
-      width: 4px;
-      margin: 0 3px;
-      background-color: $orange1;
-      box-shadow: 3px solid $orange2;
+        .mCSB_draggerRail {
+          background-color: rgba(78, 63, 32, 0.5);
+          width: 4px;
+        }
+
+        .mCSB_dragger .mCSB_dragger_bar{
+          width: 4px;
+          margin: 0 3px;
+          background-color: $orange1;
+          box-shadow: 3px solid $orange2;
+        }
+      }
+
+      .mCSB_container{
+        margin-right: 0;
+      }
     }
   }
 
-  #menu-close {
-    width: 18px;
-    height: 16px;
+  #menu-button {
+    transition: 0.5s;
     position: absolute;
-    top: calc(50vh - 7.6px);
-    left: 20px;
+    top: calc(50% - 25px);
+    left: 10px;
+
+    width: 42px;
+    height: 50px;
     
-    // cursor: pointer;
+    transform-origin: -5px 25px;
+    transform: scale(0.6);
 
-    span {
-      display: block;
-      position: absolute;
-      height: 3px;
-      width: 50%;
-      background: $blue1;
-      opacity: 1;
-      transform: rotate(0deg);
-      transition: .25s ease-in-out;
-
-      &:nth-child(even) {
-        left: 50%;
-        border-radius: 0 9px 9px 0;
-        box-shadow: 1px 0 3px 0 $blue2;
-      }
-
-      &:nth-child(odd) {
-        left:0px;
-        border-radius: 9px 0 0 9px;
-        box-shadow: -1px 0 3px 0 $blue2;
-      }
-
-      &:nth-child(1), &:nth-child(2) {
-        top: 0px;
-      }
-
-      &:nth-child(3), &:nth-child(4) {
-        top: 50%;
-        margin-top: -1.5px;
-      }
-
-      &:nth-child(5), &:nth-child(6) {
-        bottom: 0;
+    svg {
+      cursor: pointer;
+      polyline:last-child {
+        stroke:none;
       }
     }
 
-    &.open {
-      span {
-        &:nth-child(1), &:nth-child(6) {
-          transform: rotate(45deg);
-        }
-  
-        &:nth-child(2), &:nth-child(5) {
-          transform: rotate(-45deg);
-        }
-  
-        &:nth-child(1){
-          left: 1.5px;
-          top: 3px;
-        }
-        
-        &:nth-child(2){
-          left: calc(50% - 1.5px);
-          top: 3px;
-        }
-        
-        &:nth-child(3){
-          left: -50%;
-          opacity: 0;
-        }
-        
-        &:nth-child(4){
-          left: 100%;
-          opacity: 0;
-        }
-        
-        &:nth-child(5){
-          left: 1.5px;
-          bottom: 3px;
-        }
-        
-        &:nth-child(6){
-          left: calc(50% - 1.5px);
-          bottom: 3px;
-        }
+    &:hover{
+      transform: scale(1);
 
+      svg {
+        cursor: pointer;
+        polyline:last-child {
+          stroke:rgb(255, 162, 0);
+        }
+      }
+    }
+
+    #menu-close {
+      width: 18px;
+      height: 16px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      
+      cursor: pointer;
+  
+      span {
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 50%;
+        background: $blue1;
+        opacity: 1;
+        transform: rotate(0deg);
+        transition: .25s ease-in-out;
+  
+        &:nth-child(even) {
+          left: 50%;
+          border-radius: 0 9px 9px 0;
+          box-shadow: 1px 0 3px 0 $blue2;
+        }
+  
+        &:nth-child(odd) {
+          left:0px;
+          border-radius: 9px 0 0 9px;
+          box-shadow: -1px 0 3px 0 $blue2;
+        }
+  
+        &:nth-child(1), &:nth-child(2) {
+          top: 0px;
+        }
+  
+        &:nth-child(3), &:nth-child(4) {
+          top: 50%;
+          margin-top: -1.5px;
+        }
+  
+        &:nth-child(5), &:nth-child(6) {
+          bottom: 0;
+        }
+      }
+  
+      &.open {
+        span {
+          &:nth-child(1), &:nth-child(6) {
+            transform: rotate(45deg);
+          }
+    
+          &:nth-child(2), &:nth-child(5) {
+            transform: rotate(-45deg);
+          }
+    
+          &:nth-child(1){
+            left: 1.5px;
+            top: 3px;
+          }
+          
+          &:nth-child(2){
+            left: calc(50% - 1.5px);
+            top: 3px;
+          }
+          
+          &:nth-child(3){
+            left: -50%;
+            opacity: 0;
+          }
+          
+          &:nth-child(4){
+            left: 100%;
+            opacity: 0;
+          }
+          
+          &:nth-child(5){
+            left: 1.5px;
+            bottom: 3px;
+          }
+          
+          &:nth-child(6){
+            left: calc(50% - 1.5px);
+            bottom: 3px;
+          }
+  
+        }
       }
     }
   }
 }
-

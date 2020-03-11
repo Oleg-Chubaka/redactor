@@ -55,7 +55,7 @@ function m(a, b) {
 
   function redrawCanvas() {
     drawBorder();
-    drawButton();
+    // drawButton();
   }
   redrawCanvas();
 
@@ -301,117 +301,117 @@ function m(a, b) {
 
   }
 
-  function drawHex(ctx, n, bx, by, hex) {
+  // function drawHex(ctx, n, bx, by, hex) {
     
-    var h = n*Math.sqrt(3)/2;
-    var a = {x: bx, y: by - n},
-        b = {x: bx + h, y: by - n/2},
-        c = {x: bx + h, y: by + n/2},
-        d = {x: bx, y: by + n},
-        e = {x: bx - h, y: by + n/2},
-        f = {x: bx - h, y: by - n/2};
+  //   var h = n*Math.sqrt(3)/2;
+  //   var a = {x: bx, y: by - n},
+  //       b = {x: bx + h, y: by - n/2},
+  //       c = {x: bx + h, y: by + n/2},
+  //       d = {x: bx, y: by + n},
+  //       e = {x: bx - h, y: by + n/2},
+  //       f = {x: bx - h, y: by - n/2};
     
-    // Hexagon
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = blue1;
-    ctx.lineCap = 'square';
-    ctx.lineJoin = 'round';
-    ctx.fillStyle = black2;
-    ctx.shadowBlur = 4;
-    ctx.shadowColor = blue2;
+  //   // Hexagon
+  //   ctx.lineWidth = 4;
+  //   ctx.strokeStyle = blue1;
+  //   ctx.lineCap = 'square';
+  //   ctx.lineJoin = 'round';
+  //   ctx.fillStyle = black2;
+  //   ctx.shadowBlur = 4;
+  //   ctx.shadowColor = blue2;
     
-    hex.moveTo(a.x, a.y);
-    hex.lineTo(b.x, b.y);
-    hex.lineTo(c.x, c.y);
-    hex.lineTo(d.x, d.y);
-    hex.lineTo(e.x, e.y);
-    hex.lineTo(f.x, f.y);
-    hex.closePath();
+  //   hex.moveTo(a.x, a.y);
+  //   hex.lineTo(b.x, b.y);
+  //   hex.lineTo(c.x, c.y);
+  //   hex.lineTo(d.x, d.y);
+  //   hex.lineTo(e.x, e.y);
+  //   hex.lineTo(f.x, f.y);
+  //   hex.closePath();
 
-    ctx.stroke(hex);
-    ctx.fill(hex);
+  //   ctx.stroke(hex);
+  //   ctx.fill(hex);
 
-    // Orange
-    ctx.lineWidth = 1.5;
-    ctx.strokeStyle = orange1;
-    ctx.lineCap = 'square';
-    ctx.lineJoin = 'round';
-    ctx.fillStyle = 'none';
-    ctx.shadowBlur = 2;
-    ctx.shadowColor = orange2;
+  //   // Orange
+  //   ctx.lineWidth = 1.5;
+  //   ctx.strokeStyle = orange1;
+  //   ctx.lineCap = 'square';
+  //   ctx.lineJoin = 'round';
+  //   ctx.fillStyle = 'none';
+  //   ctx.shadowBlur = 2;
+  //   ctx.shadowColor = orange2;
     
-    var n2 = n - 3;
-    var h = n2*Math.sqrt(3)/2;
-    var a = {x: bx, y: by - n2},
-        b = {x: bx + h, y: by - n2/2},
-        c = {x: bx + h, y: by + n2/2},
-        d = {x: bx, y: by + n2},
-        e = {x: bx - h, y: by + n2/2},
-        f = {x: bx - h, y: by - n2/2};
+  //   var n2 = n - 3;
+  //   var h = n2*Math.sqrt(3)/2;
+  //   var a = {x: bx, y: by - n2},
+  //       b = {x: bx + h, y: by - n2/2},
+  //       c = {x: bx + h, y: by + n2/2},
+  //       d = {x: bx, y: by + n2},
+  //       e = {x: bx - h, y: by + n2/2},
+  //       f = {x: bx - h, y: by - n2/2};
     
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
-    ctx.lineTo(c.x, c.y);
-    ctx.lineTo(d.x, d.y);
-    ctx.lineTo(e.x, e.y);
-    ctx.lineTo(f.x, f.y);
-    ctx.closePath();
-    ctx.stroke();
+  //   ctx.beginPath();
+  //   ctx.moveTo(a.x, a.y);
+  //   ctx.lineTo(b.x, b.y);
+  //   ctx.lineTo(c.x, c.y);
+  //   ctx.lineTo(d.x, d.y);
+  //   ctx.lineTo(e.x, e.y);
+  //   ctx.lineTo(f.x, f.y);
+  //   ctx.closePath();
+  //   ctx.stroke();
     
-  }
+  // }
 
-  function drawButton() {
-    var ctx = canvasHud.getContext("2d");
+  // function drawButton() {
+  //   var ctx = canvasHud.getContext("2d");
     
-    var n = 20;
-    var h = n*Math.sqrt(3)/2;
-    var bx = h + 12, by = ch/2;
-    var hex = new Path2D();
-    drawHex(ctx, n, bx, by, hex);
+  //   var n = 20;
+  //   var h = n*Math.sqrt(3)/2;
+  //   var bx = h + 12, by = ch/2;
+  //   var hex = new Path2D();
+  //   drawHex(ctx, n, bx, by, hex);
     
-    var open = 1;
-    document.addEventListener('mousedown', e => {
-      if (ctx.isPointInPath(hex, e.clientX, e.clientY)) {
-        $('#menu-close').toggleClass('open');
-        $('#main-menu').toggleClass('open');
-        var menuContent = $('#menu-content')[0];
+  //   var open = 1;
+  //   document.addEventListener('mousedown', e => {
+  //     if (ctx.isPointInPath(hex, e.clientX, e.clientY)) {
+  //       $('#menu-close').toggleClass('open');
+  //       $('#main-menu').toggleClass('open');
+  //       var menuContent = $('#menu-content')[0];
         
-        if (open == 1) {
-          for (var item of $('#main-menu #menu-grid .row .pattern')) {
-            item.classList.add('open');
-          }
-          menuContent.classList.add('open');
-          open = 2;
-          setTimeout(function () {
-            $('#menu-content').mCustomScrollbar("update");
-          }, 1500);
-        } else if (open == 2) {
-          for (var item of $('#main-menu #menu-grid .row .pattern')) {
-            item.classList.remove('open');
-            item.classList.add('close');
-          }
-          menuContent.classList.remove('open');
-          menuContent.classList.add('close');
-          open = 3;
-          setTimeout(function () {
-            $(".content").mCustomScrollbar("disable",true);
-          }, 1000);
-        } else {
-          for (var item of $('#main-menu #menu-grid .row .pattern')) {
-            item.classList.remove('close');
-            item.offsetWidth = item.offsetWidth;
-            item.classList.add('open');
-          }
-          menuContent.classList.remove('close');
-          menuContent.offsetWidth = menuContent.offsetWidth;
-          menuContent.classList.add('open');
-          open = 2;
-          setTimeout(function () {
-            $('#menu-content').mCustomScrollbar("update");
-          }, 1500);
-        }
-      }
-    });
-  }
+  //       if (open == 1) {
+  //         for (var item of $('#main-menu #menu-grid .row .pattern')) {
+  //           item.classList.add('open');
+  //         }
+  //         menuContent.classList.add('open');
+  //         open = 2;
+  //         setTimeout(function () {
+  //           $('#menu-content').mCustomScrollbar("update");
+  //         }, 1500);
+  //       } else if (open == 2) {
+  //         for (var item of $('#main-menu #menu-grid .row .pattern')) {
+  //           item.classList.remove('open');
+  //           item.classList.add('close');
+  //         }
+  //         menuContent.classList.remove('open');
+  //         menuContent.classList.add('close');
+  //         open = 3;
+  //         setTimeout(function () {
+  //           $(".content").mCustomScrollbar("disable",true);
+  //         }, 1000);
+  //       } else {
+  //         for (var item of $('#main-menu #menu-grid .row .pattern')) {
+  //           item.classList.remove('close');
+  //           item.offsetWidth = item.offsetWidth;
+  //           item.classList.add('open');
+  //         }
+  //         menuContent.classList.remove('close');
+  //         menuContent.offsetWidth = menuContent.offsetWidth;
+  //         menuContent.classList.add('open');
+  //         open = 2;
+  //         setTimeout(function () {
+  //           $('#menu-content').mCustomScrollbar("update");
+  //         }, 1500);
+  //       }
+  //     }
+  //   });
+  // }
 })();
