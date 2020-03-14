@@ -18,7 +18,9 @@ $h: 1px;
 
 body {
   overflow: hidden;
+  min-width: 750px;
   width: 100vw;
+  min-height: 400px;
   height: 100vh;
   background: url('../sources/Hexagons.svg') black;
   color: white;
@@ -188,7 +190,7 @@ body {
     position: absolute;
     top: 30px; left: 35px;
     width: calc(max(20vw, 200px) - 10px);
-    height: 0;
+    height: calc(100vh - 60px);
     overflow: hidden;
 
     .login {
@@ -234,70 +236,154 @@ body {
       }
     }
 
-    #buttons{
-      position: relative;
+    #buttons-area {
+      max-height: 600px;
+      max-width: 300px;
+      min-height: 400px;
+      min-width: 200px;
+      position: absolute;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      
-      $h2: calc((max(20vw, 200px) - 10px)*0.35);
-      $n2: calc(((max(20vw, 200px) - 10px)*0.35*2)/1.73);
+      transform: translate(-50%, -50%);
+    }
 
+    #buttons{
+      height: 95%;
+      width: 95%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
 
       .button {
-        position: relative;
-        margin-top: 25px;
-        left: 30%;
-        float: left;
-        transform: translateX(-50%);
-
+        position: absolute;
         overflow: hidden;
 
-        width: $n2;
-        height: $h2;
+        width: 52.8%;
+        height: 21.8%;
         box-sizing: border-box;
+        opacity: 0;
 
-        &:nth-child(even) {
-          left: 10%;
-          top: 60px;
-          float: right;
-        }
+        // &:nth-child(1), &:nth-child(2) { margin-top: 0; }
 
-        .dashes.run {
-          animation: dashAnim .4s infinite linear;
-        }
+        &:nth-child(odd) { left: 0; }
 
-        @keyframes dashAnim {
-          0% {
-            stroke-dashoffset: 0;
-          } 100% {
-            stroke-dashoffset: -100%;
+        &:nth-child(even) { right: 0; }
+
+        &:nth-child(2) { top: 13.05%; }
+        
+        &:nth-child(3) { top: 26.1%; }
+        
+        &:nth-child(4) { top: 39.15%; }
+        
+        &:nth-child(5) { bottom: 26.1%; }
+        
+        &:nth-child(6) { bottom: 13.05%; }
+        
+        &:nth-child(7) { bottom: 0; }
+
+        svg {
+          .small-contur {
+            transform-origin: 50% 50%;
+            transform: scale(0.88);
+            fill: rgba(36, 186, 255, 0.1);
+            transition: all 0.3s linear;
+          }
+
+          .bn-name {
+            transform: translateY(-6%);
+            
+            fill: rgb(174, 229, 255);
+            font-weight: bold;
+            font-family: $fe2;
+            opacity: 0;
+            transition: all 0.3s linear;
+          }
+
+          .bn-icon {
+            transition: all 0.3s linear;
+            transform: translate(-18px, -18px);
+            width: 36px;
+            height: 36px;
+          }
+          
+          .hover {
+            cursor: pointer;
+          }
+
+
+
+          &.run {
+            .dashes {
+              animation: dashAnim .4s infinite linear;
+            }
+            
+            .bn-name {
+              transform: translateY(6%);
+              opacity: 1;
+            }
+
+            .bn-icon {
+              transform: translate(-15px, -25px);
+              width: 30px;
+              height: 30px;
+            }
+
+            .small-contur {
+              transform: scale(0.83);
+              fill: rgba(36, 186, 255, 0.3);
+            }
+
+            @keyframes dashAnim {
+              0% {
+                stroke-dashoffset: 0;
+              } 100% {
+                stroke-dashoffset: -100%;
+              }
+            }
+
+
           }
         }
+        
+        
       }
 
       .bottomTaker {
         width: 100%;
         height: 1px;
         clear: both;
-        display: inline-block;
-        margin-top: 60px;
       }
     }
 
     &.open {
-      animation: .5s 1s normal forwards openMenuContent;
-    }
+      #buttons {
+        .button {
+          &:nth-child(3), &:nth-child(5){
+            animation: .2s 0.9s normal forwards openMenuContent;
+          }
 
-    &.close {
-      animation: .5s reverse forwards openMenuContent;
+          &:nth-child(1), &:nth-child(7){
+            animation: .2s 1s normal forwards openMenuContent;
+          }
+
+          &:nth-child(2), &:nth-child(6){
+            animation: .2s 1.1s normal forwards openMenuContent;
+          }
+  
+          &:nth-child(4){
+            animation: .2s 1.2s normal forwards openMenuContent;
+          }
+        }
+      }
+      
     }
 
     @keyframes openMenuContent {
       0% {
-        height: 0;
+        opacity: 0;
       } 100% {
-        height: calc(100vh - 60px);
+        opacity: 1;
       }
     }
 

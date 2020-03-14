@@ -1,18 +1,44 @@
+// Анимация пятна света
 let hl = document.getElementById('hover-light');
-
-document.addEventListener('mousemove', e => {
-  var x = e.clientX, y = e.clientY;
-  
-  // Сдвиг света
-  moveLight(x, y);
-  
-});
-
 function moveLight(x, y){
   hl.style.left = x + 'px';
   hl.style.top = y + 'px';
 }
 
+function resizeButtonsArea() {
+  var bnsArea = document.getElementById('buttons-area');
+  var menu = document.getElementById('menu-content');
+  var widthToHeight = 0.478;
+  var newWidth = menu.offsetWidth;
+  var newHeight = menu.offsetHeight;
+  var newWidthToHeight = newWidth / newHeight;
+  
+  if (newWidthToHeight > widthToHeight) {
+      newWidth = newHeight * widthToHeight;
+      bnsArea.style.height = newHeight + 'px';
+      bnsArea.style.width = newWidth + 'px';
+  } else {
+      newHeight = newWidth / widthToHeight;
+      bnsArea.style.width = newWidth + 'px';
+      bnsArea.style.height = newHeight + 'px';
+  }
+  console.log(newHeight);
+  bnsArea.style.fontSize = Math.max((newHeight / 60), 10) + 'px';
+  
+  // var gameCanvas = document.getElementById('gameCanvas');
+  // gameCanvas.width = newWidth;
+  // gameCanvas.height = newHeight;
+}
+
+// Движение мыши (свет на фоне)
+document.addEventListener('mousemove', e => {
+  var x = e.clientX, y = e.clientY;
+  
+  moveLight(x, y);
+});
+
+
+// Анимация меню
 $('#menu-button')[0].addEventListener('click', e => {
   $('#menu-close').toggleClass('open');
   $('#main-menu').toggleClass('open');
@@ -24,56 +50,46 @@ $('#menu-button')[0].addEventListener('click', e => {
     }
     menuContent.classList.add('open');
     open = 2;
-    setTimeout(function () {
-      $('#menu-content').mCustomScrollbar("update");
-    }, 1500);
   } else if (open == 2) {
     for (var item of $('#main-menu #menu-grid .row .pattern')) {
       item.classList.remove('open');
       item.classList.add('close');
     }
     menuContent.classList.remove('open');
-    menuContent.classList.add('close');
     open = 3;
-    setTimeout(function () {
-      $(".content").mCustomScrollbar("disable",true);
-    }, 1000);
   } else {
     for (var item of $('#main-menu #menu-grid .row .pattern')) {
       item.classList.remove('close');
       item.offsetWidth = item.offsetWidth;
       item.classList.add('open');
     }
-    menuContent.classList.remove('close');
-    menuContent.offsetWidth = menuContent.offsetWidth;
     menuContent.classList.add('open');
     open = 2;
-    setTimeout(function () {
-      $('#menu-content').mCustomScrollbar("update");
-    }, 1500);
   }
 });
 
-// $('#menu-content #buttons .button svg .back')[0].addEventListener('mouseover', e => {
-//   $('#menu-content #buttons .button svg .dashes')[0].toggleClass('run');
-// });
+// Настройка размера и позиции кнопок меню
+resizeButtonsArea();
+window.addEventListener('resize', resizeButtonsArea, false);
 
+
+// Слежение за наведением на кнопки сайдбара
 document.addEventListener('mouseover', function (event) {
   if (!event.target.closest('#menu-content #buttons .button svg .hover')) return;
-	console.log(event.target.parentElement.querySelector('.dashes').classList.add('run'));
+	event.target.parentElement.classList.add('run');
 }, false);
-
 document.addEventListener('mouseout', function (event) {
   if (!event.target.closest('#menu-content #buttons .button svg .hover')) return;
-	console.log(event.target.parentElement.querySelector('.dashes').classList.remove('run'));
+	event.target.parentElement.classList.remove('run');
 }, false);
 
 
-$("#menu-content").mCustomScrollbar({
-  theme:"my-theme",
-  axis:"y",
-  mouseWheel: { scrollAmount: 500 },
-  autoHideScrollbar: true,
-  scrollInertia: 100
-});
-$(".content").mCustomScrollbar("disable",true);
+// 
+// $("#menu-content").mCustomScrollbar({
+//   theme:"my-theme",
+//   axis:"y",
+//   mouseWheel: { scrollAmount: 500 },
+//   autoHideScrollbar: true,
+//   scrollInertia: 100
+// });
+// $(".content").mCustomScrollbar("disable",true);

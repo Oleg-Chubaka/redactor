@@ -6,7 +6,9 @@
 
 body {
   overflow: hidden;
+  min-width: 750px;
   width: 100vw;
+  min-height: 400px;
   height: 100vh;
   background: url("../sources/Hexagons.svg") black;
   color: white;
@@ -261,7 +263,7 @@ body {
   top: 30px;
   left: 35px;
   width: calc(max(20vw, 200px) - 10px);
-  height: 0;
+  height: calc(100vh - 60px);
   overflow: hidden;
 }
 
@@ -317,37 +319,126 @@ body {
   text-shadow: 0 0 1px #197ba8;
 }
 
-#hud #menu-content #buttons {
-  position: relative;
+#hud #menu-content #buttons-area {
+  max-height: 600px;
+  max-width: 300px;
+  min-height: 400px;
+  min-width: 200px;
+  position: absolute;
+  top: 50%;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  width: 100%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#hud #menu-content #buttons {
+  height: 95%;
+  width: 95%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 #hud #menu-content #buttons .button {
-  position: relative;
-  margin-top: 25px;
-  left: 30%;
-  float: left;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  position: absolute;
   overflow: hidden;
-  width: calc(((max(20vw, 200px) - 10px)*0.35*2)/1.73);
-  height: calc((max(20vw, 200px) - 10px)*0.35);
+  width: 52.8%;
+  height: 21.8%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  opacity: 0;
+}
+
+#hud #menu-content #buttons .button:nth-child(odd) {
+  left: 0;
 }
 
 #hud #menu-content #buttons .button:nth-child(even) {
-  left: 10%;
-  top: 60px;
-  float: right;
+  right: 0;
 }
 
-#hud #menu-content #buttons .button .dashes.run {
+#hud #menu-content #buttons .button:nth-child(2) {
+  top: 13.05%;
+}
+
+#hud #menu-content #buttons .button:nth-child(3) {
+  top: 26.1%;
+}
+
+#hud #menu-content #buttons .button:nth-child(4) {
+  top: 39.15%;
+}
+
+#hud #menu-content #buttons .button:nth-child(5) {
+  bottom: 26.1%;
+}
+
+#hud #menu-content #buttons .button:nth-child(6) {
+  bottom: 13.05%;
+}
+
+#hud #menu-content #buttons .button:nth-child(7) {
+  bottom: 0;
+}
+
+#hud #menu-content #buttons .button svg .small-contur {
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-transform: scale(0.88);
+          transform: scale(0.88);
+  fill: rgba(36, 186, 255, 0.1);
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+#hud #menu-content #buttons .button svg .bn-name {
+  -webkit-transform: translateY(-6%);
+          transform: translateY(-6%);
+  fill: #aee5ff;
+  font-weight: bold;
+  font-family: "Exo 2";
+  opacity: 0;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+#hud #menu-content #buttons .button svg .bn-icon {
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  -webkit-transform: translate(-18px, -18px);
+          transform: translate(-18px, -18px);
+  width: 36px;
+  height: 36px;
+}
+
+#hud #menu-content #buttons .button svg .hover {
+  cursor: pointer;
+}
+
+#hud #menu-content #buttons .button svg.run .dashes {
   -webkit-animation: dashAnim .4s infinite linear;
           animation: dashAnim .4s infinite linear;
+}
+
+#hud #menu-content #buttons .button svg.run .bn-name {
+  -webkit-transform: translateY(6%);
+          transform: translateY(6%);
+  opacity: 1;
+}
+
+#hud #menu-content #buttons .button svg.run .bn-icon {
+  -webkit-transform: translate(-15px, -25px);
+          transform: translate(-15px, -25px);
+  width: 30px;
+  height: 30px;
+}
+
+#hud #menu-content #buttons .button svg.run .small-contur {
+  -webkit-transform: scale(0.83);
+          transform: scale(0.83);
+  fill: rgba(36, 186, 255, 0.3);
 }
 
 @-webkit-keyframes dashAnim {
@@ -372,34 +463,43 @@ body {
   width: 100%;
   height: 1px;
   clear: both;
-  display: inline-block;
-  margin-top: 60px;
 }
 
-#hud #menu-content.open {
-  -webkit-animation: .5s 1s normal forwards openMenuContent;
-          animation: .5s 1s normal forwards openMenuContent;
+#hud #menu-content.open #buttons .button:nth-child(3), #hud #menu-content.open #buttons .button:nth-child(5) {
+  -webkit-animation: .2s 0.9s normal forwards openMenuContent;
+          animation: .2s 0.9s normal forwards openMenuContent;
 }
 
-#hud #menu-content.close {
-  animation: .5s reverse forwards openMenuContent;
+#hud #menu-content.open #buttons .button:nth-child(1), #hud #menu-content.open #buttons .button:nth-child(7) {
+  -webkit-animation: .2s 1s normal forwards openMenuContent;
+          animation: .2s 1s normal forwards openMenuContent;
+}
+
+#hud #menu-content.open #buttons .button:nth-child(2), #hud #menu-content.open #buttons .button:nth-child(6) {
+  -webkit-animation: .2s 1.1s normal forwards openMenuContent;
+          animation: .2s 1.1s normal forwards openMenuContent;
+}
+
+#hud #menu-content.open #buttons .button:nth-child(4) {
+  -webkit-animation: .2s 1.2s normal forwards openMenuContent;
+          animation: .2s 1.2s normal forwards openMenuContent;
 }
 
 @-webkit-keyframes openMenuContent {
   0% {
-    height: 0;
+    opacity: 0;
   }
   100% {
-    height: calc(100vh - 60px);
+    opacity: 1;
   }
 }
 
 @keyframes openMenuContent {
   0% {
-    height: 0;
+    opacity: 0;
   }
   100% {
-    height: calc(100vh - 60px);
+    opacity: 1;
   }
 }
 
